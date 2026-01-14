@@ -1,0 +1,38 @@
+body {
+    font-family: Arial;
+    margin: 0;
+    padding: 0;
+    background: #fafafa;
+  }
+  
+  header {
+    padding: 20px;
+    background: #222;
+    color: #fff;
+    text-align: center;
+  }
+  
+  form {
+    width: 90%;
+    max-width: 400px;
+    margin: 20px auto;
+  }
+  
+  input, select, button {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+  }
+  
+  .card {
+    background: white;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 8px;
+  }
+  
+  .grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  

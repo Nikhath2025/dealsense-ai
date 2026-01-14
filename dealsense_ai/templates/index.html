@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="hero">
+  <h1>Compare. Analyze. Decide.</h1>
+  <p class="subtitle">India-first product comparison across Flipkart, Croma, and Reliance with review insights and video authenticity checks.</p>
+  <form class="search-form" method="POST" action="/compare">
+    <div class="form-row">
+      <input type="text" name="product_query" placeholder="Search product (e.g., iPhone 15, Samsung TV)" required>
+      <button type="submit">Find Best Deal</button>
+    </div>
+    <div class="form-row">
+      <input type="url" name="video_url" placeholder="Optional: Paste review video URL (mp4/mov/mkv)" />
+    </div>
+    <div class="form-row">
+      <select name="preference">
+        <option value="balanced" selected>Balanced</option>
+        <option value="price">Prioritize Price</option>
+        <option value="quality">Prioritize Quality</option>
+      </select>
+    </div>
+  </form>
+</section>
+
+<section id="about" class="about">
+  <h2>Why DealSense AI?</h2>
+  <ul class="pill-list">
+    <li>Real-time price and ratings</li>
+    <li>Review analysis with context (3 words around keywords)</li>
+    <li>Heuristic video authenticity scoring</li>
+    <li>Elegant dark UI for hackathons/demos</li>
+  </ul>
+</section>
+{% endblock %}

@@ -1,0 +1,44 @@
+[
+  {
+    "site": "Flipkart",
+    "name": "iPhone 15 (128 GB) - Black",
+    "price": 69999,
+    "rating": 4.6,
+    "url": "https://www.flipkart.com/search?q=iphone+15",
+    "reviews": [
+      "The camera quality is excellent and battery life is good too",
+      "Received a genuine product, delivery was fast and packaging was great",
+      "Price is high but overall value is worth it"
+    ]
+  },
+  {
+    "site": "Croma",
+    "name": "Apple iPhone 15 128GB",
+    "price": 71990,
+    "rating": 4.5,
+    "url": "https://www.croma.com/search/?text=iphone%2015",
+    "reviews": [
+      "Got a defective unit first, replacement was quick though",
+      "Great display and amazing camera, very happy with the purchase",
+      "Haptics feel awesome but charging is a bit slow"
+    ]
+  },
+  {
+    "site": "Reliance Digital",
+    "name": "Apple iPhone 15 128 GB",
+    "price": 70999,
+    "rating": 4.4,
+    "url": "https://www.reliancedigital.in/search?q=iphone%2015",
+    "reviews": [
+      "Original product, verified at Apple store, satisfied with the service",
+      "Delivery was slow and packaging had issues, disappointed",
+      "Excellent performance and smooth UI, recommended"
+    ]
+  }
+]
+
+
+
+
+
+

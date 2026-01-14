@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="results">
+  <h2>Results for "{{ query }}"</h2>
+  
+  {% if recommendation and recommendation.best %}
+  <div class="recommendation">
+    <div class="badge">Recommended</div>
+    <h3>{{ recommendation.best.name }}</h3>
+    <div class="meta">
+      <span class="price">₹ {{ '%.0f' % recommendation.best.price if recommendation.best.price else '—' }}</span>
+      <span class="site">{{ recommendation.best.site }}</span>
+      {% if recommendation.best.rating %}<span class="rating">★ {{ '%.1f' % recommendation.best.rating }}</span>{% endif %}
+      <span class="score">Score: {{ '%.2f' % recommendation.best.score }}</span>
+    </div>
+    <a class="cta" href="{{ recommendation.best.url }}" target="_blank" rel="noopener">View on {{ recommendation.best.site }}</a>
+  </div>
+  {% endif %}
+
+  {% if not products %}
+    <div class="panel">
+      <h3>No matching products found</h3>
+      <div class="muted">Try a broader query or a different product name.</div>
+    </div>
+  {% endif %}
+
+  {% if products and products[0]._price_stats %}
+  <div class="panel price-comparison">
+    <h3>Price Comparison</h3>
+    {% set stats = products[0]._price_stats %}
+    <div class="price-stats">
+      <div class="stat-item">
+        <span class="stat-label">Lowest:</span>
+        <span class="stat-value">₹ {{ '%.0f' % stats.min }}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Highest:</span>
+        <span class="stat-value">₹ {{ '%.0f' % stats.max }}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Average:</span>
+        <span class="stat-value">₹ {{ '%.0f' % stats.avg }}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Price Range:</span>
+        <span class="stat-value {% if stats.variance_pct > 20 %}variance-high{% elif stats.variance_pct > 10 %}variance-medium{% else %}variance-low{% endif %}">
+          {{ stats.variance_pct }}%
+        </span>
+      </div>
+    </div>
+    {% if stats.variance_pct > 20 %}
+    <div class="price-warning">
+      ⚠️ Significant price variation detected. Please verify product specifications match across sites.
+    </div>
+    {% elif stats.variance_pct > 10 %}
+    <div class="price-info">
+      ℹ️ Moderate price variation. Prices may differ due to offers, shipping, or product variants.
+    </div>
+    {% endif %}
+  </div>
+  {% endif %}
+
+  <div class="grid">
+    {% for p in products %}
+      <div class="card">
+        <h4>{{ p.name }}</h4>
+        <div class="meta">
+          <span class="price">₹ {{ '%.0f' % p.price if p.price else '—' }}</span>
+          <span class="site">{{ p.site }}</span>
+          {% if p.rating %}<span class="rating">★ {{ '%.1f' % p.rating }}</span>{% endif %}
+        </div>
+        <a class="link" href="{{ p.url }}" target="_blank" rel="noopener">Open</a>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="panels">
+    <div class="panel">
+      <h3>Review Analysis</h3>
+      <div class="stats">
+        <div>Average Rating: <strong>{{ review_analysis.avg_rating }}⭐</strong></div>
+        <div>Total Reviews: <strong>{{ review_analysis.total_reviews }}</strong></div>
+        <div>Positive: <strong>{{ review_analysis.positive }}</strong></div>
+        <div>Negative: <strong>{{ review_analysis.negative }}</strong></div>
+        <div>Neutral: <strong>{{ review_analysis.neutral }}</strong></div>
+      </div>
+      <p class="summary">{{ review_analysis.summary }}</p>
+      
+      {% if review_analysis.details %}
+      <div class="contexts">
+        <h4>Review Details:</h4>
+        {% for item in review_analysis.details[:6] %}
+          <div class="context">
+            <div class="context-text">{{ item.review }}</div>
+            <div class="context-meta">
+              <span>Sentiment: {{ '%.2f' % item.sentiment }}</span>
+              {% if item.context %}
+                <span>Keywords:
+                  {% for kw, ctx in item.context.items() %}
+                    <strong>{{ kw }}</strong>: {{ ctx }}{% if not loop.last %}, {% endif %}
+                  {% endfor %}
+                </span>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="panel">
+      <h3>Video Authenticity</h3>
+      {% if video_result %}
+        <div class="video-auth {{ video_result.status }}">
+          <div>Status: <strong>{{ video_result.status.replace('_', ' ').title() }}</strong></div>
+          <div>Score: <strong>{{ '%.2f' % video_result.score }}</strong></div>
+          <div>{{ video_result.explanation }}</div>
+        </div>
+      {% else %}
+        <div class="muted">No video URL provided.</div>
+      {% endif %}
+    </div>
+  </div>
+
+  <a class="back" href="/">← New Search</a>
+</section>
+
+{% endblock %}
+
+
